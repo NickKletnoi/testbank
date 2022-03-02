@@ -4,5 +4,10 @@ git status
 git branch -M master
 
 git clone https://github.com/NickKletnoi/testbank_ECR_AWS.git
+git init
+git add .
+git commit -m "changes latest"
+git status
 git remote add origin https://github.com/NickKletnoi/testbank_ECR_AWS.git
 git push -u origin master
+...
