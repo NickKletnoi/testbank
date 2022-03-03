@@ -1,9 +1,13 @@
-name: Deploy to ECR
+name: Deploy to ECR and ECS
 
 on:
  
   push:
     branches: [ master ]
+  env:
+    ECS_SERVICE: myservice
+    ECS_CLUSTER: mycluster
+    ECS_TASK_DEFINITION: ./task-definition.json
 
 jobs:
   
@@ -44,12 +48,14 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecr-login@v1
       with:
-          task-definition: ./task-definition.json
-          container-name: mycontainer
-          image: ${{ steps.build-image.outputs.image}}
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecr-login@v1
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: simplebank
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
+        wait-for-service-stability: true
