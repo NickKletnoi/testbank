@@ -4,7 +4,7 @@ on:
  
   push:
     branches: [ master ]
-  env:
+env:
     ECS_SERVICE: myservice
     ECS_CLUSTER: mycluster
     ECS_TASK_DEFINITION: ./task-definition.json
