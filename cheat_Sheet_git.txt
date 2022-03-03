@@ -10,5 +10,5 @@ git commit -m "changes latest"
 git status
 git remote add origin https://github.com/NickKletnoi/testbank_ECR_AWS.git
 git push -u origin master
-...
+...*
 ....
