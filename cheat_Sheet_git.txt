@@ -13,3 +13,16 @@ git remote add origin https://github.com/NickKletnoi/testbank_ECR_AWS.git
 git push -u origin master
 ...*
 ....
+
+git config push.matching upstream
+git branch feature
+
+git checkout master
+git pull origin feature
+git push -f origin master
+
+git checkout feature
+git add .
+git commit -m "2 rows"
+git push -u origin feature
+
