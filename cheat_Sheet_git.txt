@@ -1,3 +1,21 @@
+
+###########################################################################################################
+
+make new folder#################
+open terminal
+>>
+git remote add origin https://github.com/NickKletnoi/testbank_ECR_AWS.git
+>>
+git remote update --prune
+>>
+git checkout -b feature origin/feature
+make changes to the file#########################
+>>
+git commit -am "changes to sh"
+>>
+git push
+
+#############################################################################################################
 git init
 git add .
 git status
