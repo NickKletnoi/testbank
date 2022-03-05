@@ -4,6 +4,14 @@ on:
  
   push:
     branches: [ master ]
+    
+    
+env:
+   ECR_REPOSITORY: simplebank
+   ECS_SERVICE: myservice
+   ECS_CLUSTER: mycluster
+   ECS_TASK_DEFINITION: simplebank   
+
 
 jobs:
   
@@ -32,7 +40,7 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: simplebank
+        ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         IMAGE_TAG:  ${{ github.sha }}
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -41,7 +49,7 @@ jobs:
     - name: Deploy to Amazon ECS
       uses: aws-actions/amazon-ecr-login@v1
       with:
-        task-definition: simplebank 
-        service: myservice
-        cluster: mycluster
+        task-definition: ${{ env.ECS_TASK_DEFINITION }} 
+        service: ${{ env.ECS_SERVICE }} 
+        cluster: ${{ env.ECS_CLUSTER }} 
         wait-for-service-stability: true       
