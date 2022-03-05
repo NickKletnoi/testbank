@@ -1,53 +1,13 @@
 
-###########################################################################################################
-
-make new folder#################
-open terminal
->>
+---------------------------------------------------
+---- same branch ----------------------------------
+git init
+git config push.matches
 git remote add origin https://github.com/NickKletnoi/testbank_ECR_AWS.git
->>
 git remote update --prune
->>
 git checkout -b feature origin/feature
-make changes to the file#########################
->>
-git commit -am "changes to sh"
->>
-git push
-
-git push --set-upstream origin feat1
-
-#############################################################################################################
-git init
-git add .
-git status
-git branch -M master
-git checkout master
-
-git clone https://github.com/NickKletnoi/testbank_ECR_AWS.git
-git init
-git add .
-git commit -m "changes latest"
-git status
-git remote add origin https://github.com/NickKletnoi/testbank_ECR_AWS.git
-
-git checkout -b fix-failing-tests origin/fix-failing-tests
-git commit -m "add new file"
-git push
-
-git push -u origin master
-...*
-....
-
-git config push.matching upstream
-git branch feature
-
-git checkout master
-git pull origin feature
-git push -f origin master
-
-git checkout feature
-git add .
-git commit -m "2 rows"
-git push -u origin feature
-
+-- some changes --
+git commit -am "changes..."
+git push origin HEAD:feature
+----------------------------------------------
+git checkout -b master1 5d0ff45 
