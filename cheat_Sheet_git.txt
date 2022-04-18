@@ -1,6 +1,7 @@
 --this is alteration -- 
 --this another change
 -- this is a thirda change--
+-- this is a fourth change --
 ---------------------------------------------------
 ---- same branch ----------------------------------
 git init
