@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-cheat_Sheet_git",
+      "appliesTo": "cheat_Sheet_git.txt",
+      "type": "launch"
+    }
+  ]
+}

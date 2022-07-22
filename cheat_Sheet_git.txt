@@ -1,15 +1,12 @@
+--this is alteration -- 
+--this another change
+-- this is a thirda change--
+-- this is a fourth change --
+---------------------------------------------------
+---- same branch ----------------------------------
 git init
-git add .
-git status
-git branch -M master
-git checkout master
-
-git clone https://github.com/NickKletnoi/testbank_ECR_AWS.git
-git init
-git add .
-git commit -m "changes latest"
-git status
+git config push.matches
 git remote add origin https://github.com/NickKletnoi/testbank_ECR_AWS.git
 git push -u origin master
 ...*
-.......
+.......iiiii
