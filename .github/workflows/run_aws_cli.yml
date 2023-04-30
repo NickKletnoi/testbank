@@ -1,0 +1,27 @@
+name: Run AWS Cli
+
+on:
+  workflow_dispatch:
+
+env:
+  ECR_REPOSITORY: simplebank
+  ECS_SERVICE: myservice
+  ECS_CLUSTER: mycluster
+  ECS_TASK_DEFINITION: simplebank
+
+jobs:
+  execute_cli:
+    name: execute the cli
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Run Cli Script 1
+        run: |
+          aws ec2 describe-security-groups | jq -r '.SecurityGroups[]|.GroupId+" "+.GroupName'
