@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import azure.functions as func
 import requests
 import pandas as pd
