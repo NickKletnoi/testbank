@@ -44,7 +44,8 @@ times_df = pd.DataFrame({"Time": [
 base_url_part1 = 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?date=today&station='
 base_url_part2 = '&interval=h&product=water_level&datum=LWD&time_zone=lst_ldt&application=Interlake&units=english&format=json'
 
-def main(mytimer: func.TimerRequest) -> None:
+def ingest_from_noaa():
+#def main(mytimer: func.TimerRequest) -> None:
     final_station_list = [base_url_part1 + str(i) + base_url_part2 for i in stations_lst]
     final_df = pd.DataFrame()
     for url in final_station_list:
@@ -87,7 +88,7 @@ def main(mytimer: func.TimerRequest) -> None:
 
     df_ff.rename(columns={'WaterlevelsTime': 'Time'}, inplace=True)
     df_ff = df_ff.drop(['StationsTime'], axis=1)
-    df_ff.to_sql('WaterLevelMeasurements', con=engine, index=False, if_exists='append', schema='dbo')
+    df_ff.to_sql('WaterLevelMeasurements2', con=engine, index=False, if_exists='append', schema='dbo')
 
     end_time = datetime.datetime.now()
     execution_time = end_time - start_time
@@ -95,4 +96,5 @@ def main(mytimer: func.TimerRequest) -> None:
     print(df_ff.to_string())
     print("Success")
 
-    return func.HttpResponse(f"Successfully executed  in  {execution_time} seconds")
+
+ingest_from_noaa()
