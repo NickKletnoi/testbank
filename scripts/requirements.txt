@@ -79,4 +79,3 @@ azure-servicebus==0.21.1
 azure-servicefabric==6.3.0.0
 azure-servicemanagement-legacy==0.20.7
 azure-sql==1.10
-azure-storage-blob==12.5.0
