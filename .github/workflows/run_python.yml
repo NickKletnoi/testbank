@@ -24,3 +24,4 @@ jobs:
 
       - name: execute py script # run main.py
         run: python ./scripts/main.py
+
