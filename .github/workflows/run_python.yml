@@ -2,6 +2,8 @@ name: get waterlevels2
 
 on:
   workflow_dispatch:
+#   schedule:
+#     - cron: '0 * * * *'
 
 jobs:
   Get_WaterLevels:
