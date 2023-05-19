@@ -8,7 +8,7 @@ jobs:
     uses: .github/workflows/reusable_databricks_code_deployment.yml@v1.0.0
     with:
       databricks_code_path: "Pipelines/Dev"
-      service_code_file: "scripts/Notebooks/test1.py"
+      service_code_file: "notebooks/test1.py"
     secrets:
       DATABRICKS_HOST_URL: https://dbc-68d2f873-1a1e.cloud.databricks.com/
       DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_DEV_TOKEN }}
