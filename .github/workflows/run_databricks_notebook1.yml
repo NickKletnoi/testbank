@@ -3,28 +3,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  push_to_db:
+  build:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout current repository
-        uses: actions/checkout@v3.3.0
-      
-      - name: Set up python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
 
-      - name: Databricks CLI config
-        run: |
-            pip install databricks-cli 
-            cat > ~/.databrickscfg << EOF 
-            [DEFAULT] 
-            host = ${{ vars.DATABRICKS_HOST_URL }} 
-            token = ${{ secrets.DATABRICKS_DEV_TOKEN }} 
-            jobs-api-version = 2.1 
-            EOF 
-    
-      - name: Deploy code to databricks workspace
-        run: |
-            databricks workspace import .notebooks/test1.py /Users/kletnoi@live.com/testing/test1.py -l python
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Trigger notebook in staging
+        uses: databricks/run-notebook@v0
+        with:
+          databricks-host: ${{ vars.DATABRICKS_HOST_URL }}
+          databricks-token: ${{ secrets.DATABRICKS_DEV_TOKEN }}
+          local-notebook-path: notebooks/test1.py
+          # The cluster JSON below is for AWS workspaces. On Azure and GCP, set
+          # node_type_id to an appropriate node type, e.g. "Standard_D3_v2" for
+          # Azure or "n1-highmem-4" for GCP
+          new-cluster-json: >
+            {
+              "num_workers": 1,
+              "spark_version": "11.3.x-scala2.12",
+              "node_type_id": "i3.xlarge"
+            }
+          # Grant users in the "devops" group view permission on the
+          # notebook results
+          access-control-list-json: >
+            [
+              {
+                "group_name": "devops",
+                "permission_level": "CAN_VIEW"
+              }
+            ]
