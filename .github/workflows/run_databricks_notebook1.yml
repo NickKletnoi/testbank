@@ -27,4 +27,4 @@ jobs:
     
       - name: Deploy code to databricks workspace
         run: |
-            databricks workspace import ${{ vars.SERVICE_CODE_FILE }} ${{ vars.DATABRICKS_CODE_PATH }} --language python --overwrite
+            databricks workspace import ${{ vars.SERVICE_CODE_FILE }} ${{ vars.DATABRICKS_CODE_PATH }} -l python
