@@ -1,9 +1,9 @@
-name: Notebook Deployment - Databricks
+name: Run Github Notebook on Databricks
 on:
   workflow_dispatch:
 
 jobs:
-  build:
+  Run_Notebook:
     runs-on: ubuntu-latest
 
     steps:
