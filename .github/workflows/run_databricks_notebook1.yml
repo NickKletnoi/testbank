@@ -26,10 +26,10 @@ jobs:
             }
           # Grant users in the "devops" group view permission on the
           # notebook results
-          access-control-list-json: >
-            [
-              {
-                "group_name": "devops",
-                "permission_level": "CAN_VIEW"
-              }
-            ]
+          #access-control-list-json: >
+          #  [
+          #    {
+          #      "group_name": "devops",
+          #      "permission_level": "CAN_VIEW"
+          #    }
+          #  ]
