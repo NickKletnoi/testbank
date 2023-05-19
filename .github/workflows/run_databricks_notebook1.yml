@@ -12,7 +12,7 @@ jobs:
       - name: Trigger notebook in staging
         uses: databricks/run-notebook@v0
         with:
-          databricks-host: ${{ vars.DATABRICKS_HOST_URL }}
+          databricks-host: https://dbc-68d2f873-1a1e.cloud.databricks.com/
           databricks-token: ${{ secrets.DATABRICKS_DEV_TOKEN }}
           local-notebook-path: notebooks/test1.py
           # The cluster JSON below is for AWS workspaces. On Azure and GCP, set
