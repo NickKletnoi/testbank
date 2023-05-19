@@ -15,10 +15,10 @@ jobs:
           databricks-host: https://dbc-68d2f873-1a1e.cloud.databricks.com/
           databricks-token: ${{ secrets.DATABRICKS_DEV_TOKEN }}
           local-notebook-path: notebooks/test1.py
-          libraries-json: >
-            [
-              { "pypi": "mlflow" }
-            ]
+          #libraries-json: >
+          #  [
+          #    { "pypi": "mlflow" }
+          #  ]
           # The cluster JSON below is for AWS workspaces. On Azure and GCP, set
           # node_type_id to an appropriate node type, e.g. "Standard_D3_v2" for
           # Azure or "n1-highmem-4" for GCP
