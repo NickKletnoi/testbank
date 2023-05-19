@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       databricks_code_path:
-        description: /Shared/
+        description: /Shared/test2.py
         type: string
         required: true
       service_code_file:
