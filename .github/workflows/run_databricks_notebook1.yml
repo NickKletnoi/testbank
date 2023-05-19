@@ -1,20 +1,6 @@
 name: Notebook Deployment - Databricks
 on:
   workflow_dispatch:
-    inputs:
-      databricks_code_path:
-        description: /Shared/test1.py
-        type: string
-        required: true
-      service_code_file:
-        description: ./notebooks/test1.py
-        type: string
-        required: true
-      databricks_host_url:
-        description: https://dbc-68d2f873-1a1e.cloud.databricks.com/
-        type: string
-        required: true
-        
 
 jobs:
   push_to_db:
@@ -34,11 +20,11 @@ jobs:
             pip install databricks-cli 
             cat > ~/.databrickscfg << EOF 
             [DEFAULT] 
-            host = ${{ inputs.databricks_host_url }} 
-            token = ${{ secrets.DATABRICKS_TOKEN }} 
+            host = ${{ vars.DATABRICKS_HOST_URL }} 
+            token = ${{ secrets.DATABRICKS_DEV_TOKEN }} 
             jobs-api-version = 2.1 
             EOF 
     
       - name: Deploy code to databricks workspace
         run: |
-            databricks workspace import ${{ inputs.service_code_file }} ${{ inputs.databricks_code_path }} --language python --overwrite
+            databricks workspace import ${{ vars.SERVICE_CODE_FILE }} ${{ vars.DATABRICKS_CODE_PATH }} --language python --overwrite
