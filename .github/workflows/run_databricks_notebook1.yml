@@ -3,14 +3,18 @@ on:
   workflow_call:
     inputs:
       databricks_code_path:
-        description: Databricks Service Path
+        description: /Shared/
         type: string
         required: true
-      
       service_code_file:
-        description: python code file path
+        description: ./notebooks/test1.py
         type: string
         required: true
+      databricks_host_url:
+        description: https://dbc-68d2f873-1a1e.cloud.databricks.com/
+        type: string
+        required: true
+        
 
 jobs:
   push_to_db:
@@ -30,7 +34,7 @@ jobs:
             pip install databricks-cli 
             cat > ~/.databrickscfg << EOF 
             [DEFAULT] 
-            host = ${{ secrets.DATABRICKS_HOST_URL }} 
+            host = ${{ inputs.databricks_host_url }} 
             token = ${{ secrets.DATABRICKS_TOKEN }} 
             jobs-api-version = 2.1 
             EOF 
