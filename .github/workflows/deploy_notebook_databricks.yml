@@ -18,18 +18,18 @@ jobs:
       - name: Databricks CLI config
         run: |
             pip install databricks-cli 
-            curl --request POST \
-            https://dbc-68d2f873-1a1e.cloud.databricks.com/api/2.0/accounts/6a35b239-151a-44ff-997d-c28e1f01381a/oauth2/published-app-integrations \
-            --header 'Content-Type: application/json' \
-            --data '{ "app_id": "bricks-cli" }' \
-            --user "kletnoi@live.com:B1pr0gr@m"
-            
-            #cat > ~/.databrickscfg << EOF 
-            #[DEFAULT]
-            #host = https://dbc-68d2f873-1a1e.cloud.databricks.com/
-            #jobs-api-version = 2.0
-            #token = dapi8b2754011c4da8f14a50b144f4611477
-            #EOF 
+            #curl --request POST \
+            #https://dbc-68d2f873-1a1e.cloud.databricks.com/api/2.0/accounts/6a35b239-151a-44ff-997d-c28e1f01381a/oauth2/published-app-integrations \
+            #--header 'Content-Type: application/json' \
+            #--data '{ "app_id": "bricks-cli" }' \
+            #--user "kletnoi@live.com:B1pr0gr@m"
+            cd /opt/hostedtoolcache/Python/3.9.16/x64/bin/databricks
+            cat > ~/.databrickscfg << EOF 
+            [DEFAULT]
+            host = https://dbc-68d2f873-1a1e.cloud.databricks.com/
+            jobs-api-version = 2.0
+            token = dapi8b2754011c4da8f14a50b144f4611477
+            EOF 
     
       - name: Deploy code to databricks workspace
         run: |
