@@ -18,6 +18,7 @@ jobs:
       - name: Databricks CLI config
         run: |
             pip install databricks-cli 
+            cd /root/
             cat > ~/.databrickscfg << EOF 
             [DEFAULT]
             host = https://dbc-68d2f873-1a1e.cloud.databricks.com/
