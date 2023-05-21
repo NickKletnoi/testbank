@@ -24,7 +24,7 @@ jobs:
             #--data '{ "app_id": "bricks-cli" }' \
             #--user "kletnoi@live.com:B1pr0gr@m"
             cd /opt/hostedtoolcache/Python/3.9.16/x64/bin/databricks
-            cat > ~/.databrickscfg << EOF 
+            cat > .databrickscfg << EOF 
             [DEFAULT]
             host = https://dbc-68d2f873-1a1e.cloud.databricks.com/
             jobs-api-version = 2.0
