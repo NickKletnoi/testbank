@@ -8,7 +8,7 @@ env:
   DEPLOY_FOLDER: /Users/kletnoi@live.com/testing/
 
 jobs:
-  push_to_db:
+  deploy_notebook:
     runs-on: ubuntu-latest
     
     steps:
@@ -31,3 +31,13 @@ jobs:
       - name: Deploy code to databricks workspace
         run: |
             databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY }} -l python --overwrite
+            
+            
+  next_step:
+      needs: deploy_notebook
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Next Step
+          run: |
+              echo "success"
