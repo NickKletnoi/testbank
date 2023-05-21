@@ -19,7 +19,7 @@ jobs:
         run: |
             pip install databricks-cli           
             databricks configure --token <<EOF
-            https://dbc-68d2f873-1a1e.cloud.databricks.com/
+            ${{ vars.DATABRICKS_HOST_URL }}
             ${{ secrets.DATABRICKS_DEV_TOKEN }}
             EOF
 
