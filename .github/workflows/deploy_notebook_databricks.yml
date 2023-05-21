@@ -9,6 +9,8 @@ env:
 
 jobs:
   deploy_notebook:
+    environment: 
+      name: vars
     runs-on: ubuntu-latest
     
     steps:
@@ -24,7 +26,7 @@ jobs:
         run: |
             pip install databricks-cli           
             databricks configure --token <<EOF
-            ${{ env.DATABRICKS_HOST_URL }}
+            ${{ vars.DATABRICKS_HOST_URL }}
             ${{ secrets.DATABRICKS_DEV_TOKEN }}
             EOF
 
