@@ -1,0 +1,47 @@
+name: Deploy Notebook to Databricks2
+on:
+  workflow_dispatch:
+
+env:
+  DATABRICKS_HOST_URL: https://dbc-68d2f873-1a1e.cloud.databricks.com/
+  FILE_NAME_TO_DEPLOY: test1.py
+  DEPLOY_FOLDER: /Users/kletnoi@live.com/testing/
+  NEXT_FILE_TO_DEPLOY: test2.py
+jobs:
+  deploy_notebook:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v3.3.0
+      
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Databricks CLI config
+        run: |
+            pip install databricks-cli           
+            databricks configure --token <<EOF
+            ${{ env.DATABRICKS_HOST_URL }}
+            ${{ secrets.DATABRICKS_DEV_TOKEN }}
+            EOF
+
+      - name: Deploy code to databricks workspace
+        run: |
+            databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY }} -l python --overwrite
+            
+            
+  next_step:
+      needs: deploy_notebook
+      runs-on: ubuntu-latest
+      steps:
+        - name: Deploy to Databrick test2 by composite
+          uses: ./.github/workflows/deploy_test2 
+          with:
+            databricks_dev_token: ${{ secrets.DATABRICKS_DEV_TOKEN }}
+            databircks_host_url:  ${{ env.DATABRICKS_HOST_URL }}
+            next_file_to_deploy: ${{ env.NEXT_FILE_TO_DEPLOY }}
+            databricks_deploy_folder: ${{ env.DEPLOY_FOLDER }}         
+
