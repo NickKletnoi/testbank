@@ -38,7 +38,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Deploy to Databrick test2 by composite
-          uses: ./.github/workflows/deploy_test2 
+          uses: ./.github/workflows/_deploy_test2 
           with:
             databricks_dev_token: ${{ secrets.DATABRICKS_DEV_TOKEN }}
             databircks_host_url:  ${{ env.DATABRICKS_HOST_URL }}
