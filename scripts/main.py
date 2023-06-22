@@ -87,7 +87,7 @@ def ingest_from_noaa():
 
     df_ff.rename(columns={'WaterlevelsTime': 'Time'}, inplace=True)
     df_ff = df_ff.drop(['StationsTime'], axis=1)
-    df_ff.to_sql('WaterLevelMeasurements', con=engine, index=False, if_exists='append', schema='dbo')
+    df_ff.to_sql('WaterLevelMeasurements2', con=engine, index=False, if_exists='append', schema='dbo')
 
     end_time = datetime.datetime.now()
     execution_time = end_time - start_time
