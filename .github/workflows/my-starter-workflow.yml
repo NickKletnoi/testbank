@@ -1,0 +1,7 @@
+name: Deploy resuable workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy_workflow_notebook:
+    uses: ./.github/workflows/my-starter-workflow-sub.yml
