@@ -1,0 +1,41 @@
+name: deploy-from-pr
+
+on:
+  pull_request:
+    branches:
+      - master
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy-from-pr:
+    name: Deploy from PR to Development
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set version
+        id: release
+        run: echo ::set-output name=version::$(git describe --always)
+
+      # custom action to build and push image
+      - name: Build & publish image
+        uses: ./.github/actions/publish-image # see how it's referred from same repo directly
+        with:
+          registry: ${{ env.REGISTRY }}
+          registry_username: ${{ github.REGISTRY_USERNAME }}
+          registry_password: ${{ secrets.REGISTRY_PASSWORD }}
+          image_name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tag: ${{ steps.release.outputs.version }}
+
+      # custom action to deploy into kubernetes
+      - name: Deploy to kubernetes
+        uses: ./.github/actions/deploy-to-k8s # see how it's referred from same repo directly
+        with:
+          digitalocean_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+          cluster_name: ${{ secrets.CLUSTER_NAME }}
+          overlay_path: .k8s/overlays/dev
+          image_name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tag: ${{ steps.release.outputs.version }}
