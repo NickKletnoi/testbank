@@ -1,4 +1,4 @@
-name: Deploy Notebook to Databricks
+name: Deploy Notebook to Databricks - composite
 on:
   workflow_dispatch:
 
