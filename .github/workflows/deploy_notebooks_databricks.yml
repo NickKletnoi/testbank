@@ -45,7 +45,7 @@ jobs:
             databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY_2 }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY_2 }} -l python --overwrite
             databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY_3 }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY_3 }} -l python --overwrite
             
-  next_notebook:
+  finish:
       needs: deploy_notebooks
       runs-on: ubuntu-latest
 
