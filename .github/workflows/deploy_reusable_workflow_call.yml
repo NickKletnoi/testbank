@@ -1,0 +1,18 @@
+name: Deploy Notebook1 and Notebook2 to Databricks
+on:
+  workflow_dispatch:
+
+env:
+  DATABRICKS_HOST_URL: https://dbc-68d2f873-1a1e.cloud.databricks.com/
+  FILE_NAME_TO_DEPLOY: test1.py
+  DEPLOY_FOLDER: /Users/kletnoi@live.com/testing/
+
+jobs:
+  deploy_notebook1:
+     uses: ./.github/workflows/_deploynotebook1.yml
+
+
+  deploy_notebook2:
+     uses: ./.github/workflows/_deploynotebook2.yml
+     
+  
