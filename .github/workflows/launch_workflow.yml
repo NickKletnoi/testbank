@@ -2,16 +2,11 @@ name: Deploy Notebooks to Databricks - workflow
 on:
   workflow_dispatch:
 
-env:
-  DATABRICKS_HOST_URL: https://dbc-68d2f873-1a1e.cloud.databricks.com/
-  FILE_NAME_TO_DEPLOY: test1.py
-  DEPLOY_FOLDER: /Users/kletnoi@live.com/testing/
-
 jobs:
   deploy:
     uses: NickKletnoi/testbank_ECR_AWS/.github/workflows/launch_workflow_sub.yml@master
     with:
-      file_name_to_deploy: "${{ env.FILE_NAME_TO_DEPLOY }}"
-      folder_name_to_deploy: "${{ env.DEPLOY_FOLDER }}"
-      databricks_host_url: "${{ env.DATABRICKS_HOST_URL }}"
+      file_name_to_deploy: "test1.py"
+      folder_name_to_deploy: "/Users/kletnoi@live.com/testing/"
+      databricks_host_url: "https://dbc-68d2f873-1a1e.cloud.databricks.com/"
       databricks_dev_token: "${{ secrets.DATABRICKS_DEV_TOKEN }}"
