@@ -11,7 +11,7 @@ jobs:
   deploy:
     uses: NickKletnoi/testbank_ECR_AWS/.github/workflows/launch_workflow_sub.yml@master
     with:
-      file_name_to_deploy: "${{ env.FILE_NAME_TO_DEPLOY_1 }}"
+      file_name_to_deploy: "${{ env.FILE_NAME_TO_DEPLOY }}"
       folder_name_to_deploy: "${{ env.DEPLOY_FOLDER }}"
       databricks_host_url: "${{ env.DATABRICKS_HOST_URL }}"
       databricks_dev_token: "${{ secrets.DATABRICKS_DEV_TOKEN }}"
