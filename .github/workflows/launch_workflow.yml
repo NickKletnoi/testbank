@@ -9,4 +9,4 @@ jobs:
       file_name_to_deploy: "test1.py"
       folder_name_to_deploy: "/Users/kletnoi@live.com/testing/"
       databricks_host_url: "https://dbc-68d2f873-1a1e.cloud.databricks.com/"
-      databricks_dev_token: "${{ secrets.DATABRICKS_DEV_TOKEN }}"
+      databricks_dev_token: ${{ secrets.DATABRICKS_DEV_TOKEN }}
