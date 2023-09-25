@@ -4,5 +4,5 @@ on:
 
 jobs:           
   next_step:
-      uses: NickKletnoi/testbank_ECR_AWS/.github/workflows/deploy_workflow.yml@main
+      uses: ./.github/workflows/deploy_workflow.yml
      
