@@ -1,0 +1,8 @@
+name: Deploy Notebook to Databricks through workflow - main
+on:
+  workflow_dispatch:
+
+jobs:           
+  next_step:
+      uses: NickKletnoi/testbank_ECR_AWS/.github/workflows/deploy_workflow.yml@main
+     
