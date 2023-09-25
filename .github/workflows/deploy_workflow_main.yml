@@ -1,8 +1,0 @@
-name: Deploy Notebook to Databricks through workflow - main
-on:
-  workflow_dispatch:
-
-jobs:           
-  next_step:
-      uses: ./.github/workflows/deploy_workflow.yml
-     
