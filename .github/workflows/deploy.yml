@@ -1,9 +1,13 @@
 name: Deploy to ECR
 
+
 on:
+  workflow_dispatch:
+
+# on:
  
-  push:
-    branches: [ master ]
+#   push:
+#     branches: [ master ]
     
     
 env:
