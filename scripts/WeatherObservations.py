@@ -8,16 +8,9 @@ import pyodbc
 
 start_time = datetime.datetime.now()
 
-#conn = pyodbc.connect('DRIVER={SQL Server};SERVER=interlake-bi.database.windows.net,1433', user='BIAdmin@interlake-bi', password='sb98D&B(*#$@', database='ISS_DW')
-#conn = pyodbc.connect('DRIVER={/opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.0.so.1.1};SERVER=interlake-bi.database.windows.net,1433', user='BIAdmin@interlake-bi', password='sb98D&B(*#$@', database='ISS_DW')
-#con_str = urllib.parse.quote_plus("DRIVER={ODBC Driver 17 for SQL Server};SERVER=interlake-bi.database.windows.net;DATABASE=ISS_DW;UID=BIAdmin;PWD=sb98D&B(*#$@")
-#engine = create_engine("mssql+pyodbc:///?odbc_connect=%s" % con_str)
-
-uname = 'BIAdmin@interlake-bi'
-pword = 'sb98D&B(*#$@'
-server = 'interlake-bi.database.windows.net'
-dbname = 'ISS_DW'
-engine = create_engine("mssql+pyodbc://" + uname + ":" + pword + "@" + server + "/" + dbname + "?driver=ODBC+Driver+17+for+SQL+Server")
+conn = pyodbc.connect('DRIVER={SQL Server};SERVER=interlake-bi.database.windows.net,1433', user='BIAdmin@interlake-bi', password='sb98D&B(*#$@', database='ISS_DW')
+con_str = urllib.parse.quote_plus("DRIVER={ODBC Driver 17 for SQL Server};SERVER=interlake-bi.database.windows.net;DATABASE=ISS_DW;UID=BIAdmin;PWD=sb98D&B(*#$@")
+engine = create_engine("mssql+pyodbc:///?odbc_connect=%s" % con_str)
 
 stations_lst=[9063063,9075099,9075099,9076027,9076033,9076070,9075080,9087031,9099064,9063079,9063053,9063063,9075065]
 
