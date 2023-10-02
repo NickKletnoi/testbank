@@ -4,11 +4,9 @@ import pandas as pd
 import urllib
 from sqlalchemy import create_engine
 import datetime
-import pyodbc
 
 start_time = datetime.datetime.now()
 
-conn = pyodbc.connect('DRIVER={SQL Server};SERVER=interlake-bi.database.windows.net,1433', user='BIAdmin@interlake-bi', password='sb98D&B(*#$@', database='ISS_DW')
 con_str = urllib.parse.quote_plus("DRIVER={ODBC Driver 17 for SQL Server};SERVER=interlake-bi.database.windows.net;DATABASE=ISS_DW;UID=BIAdmin;PWD=sb98D&B(*#$@")
 engine = create_engine("mssql+pyodbc:///?odbc_connect=%s" % con_str)
 
