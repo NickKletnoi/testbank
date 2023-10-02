@@ -1,4 +1,4 @@
-name: get waterlevels2
+name: get waterlevels and weather observations
 
 on:
   schedule:
