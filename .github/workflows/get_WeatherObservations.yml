@@ -9,7 +9,7 @@ on:
 
 
 jobs:
-  Get_WaterLevels:
+  Get_WeatherObservations:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
