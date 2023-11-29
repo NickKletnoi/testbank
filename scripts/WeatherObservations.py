@@ -161,10 +161,14 @@ def ingest_watertemp_from_noaa():
         station = data['metadata']['id']
         rows = []
         for d in data['data']:
-            stationid = station
-            time = d['t']
-            airtemp = d['v']
-            rows.append({"StationId": stationid, "ObservationTime": time, "WaterTemperature": airtemp})
+            try:
+                stationid = station
+                time = d['t']
+                airtemp = d['v']
+                rows.append({"StationId": stationid, "ObservationTime": time, "WaterTemperature": airtemp})
+            except Exception as e:
+                print(f"Error: {e}")
+                continue
         df = pd.DataFrame(rows, columns=dfcols)
         final_df = pd.concat([final_df, df], axis=0)
 
@@ -259,6 +263,6 @@ def final_table_assemble():
 
 ingest_wind_from_noaa()
 ingest_airtemp_from_noaa()
-#ingest_watertemp_from_noaa()
+ingest_watertemp_from_noaa()
 ingest_airpress_from_noaa()
 #final_table_assemble()
