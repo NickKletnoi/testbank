@@ -48,11 +48,15 @@ def ingest_from_noaa():
     final_station_list = [base_url_part1 + str(i) + base_url_part2 for i in stations_lst]
     final_df = pd.DataFrame()
     for url in final_station_list:
-        response = requests.get(url=url)
-        data = response.json()
-        dfcols = ["StationId", "Time", "WaterLevel"]
-        station = data['metadata']['id']
-        rows = []
+        try:
+            response = requests.get(url=url)
+            data = response.json()
+            dfcols = ["StationId", "Time", "WaterLevel"]
+            station = data['metadata']['id']
+            rows = []
+        except:
+            continue
+        
         for d in data['data']:
             stationid = station
             time = d['t']
