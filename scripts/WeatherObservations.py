@@ -50,11 +50,16 @@ def ingest_wind_from_noaa():
     final_station_list = [base_url_part1 + str(i) + base_url_part2_wind for i in stations_lst]
     final_df = pd.DataFrame()
     for url in final_station_list:
-        response = requests.get(url=url)
-        data = response.json()
-        dfcols = ["StationId", "ObservationTime", "WindSpeed","WindDirection"]
-        station = data['metadata']['id']
-        rows = []
+        try:
+            response = requests.get(url=url)
+            data = response.json()
+            dfcols = ["StationId", "ObservationTime", "WindSpeed","WindDirection"]
+            station = data['metadata']['id']
+            rows = []
+        except Exception as e:
+            print(f"Error: {e}")
+            continue
+        
         for d in data['data']:
             stationid = station
             time = d['t']
@@ -103,11 +108,16 @@ def ingest_airtemp_from_noaa():
     final_station_list = [base_url_part1 + str(i) + base_url_part2_airtemp for i in stations_lst]
     final_df = pd.DataFrame()
     for url in final_station_list:
-        response = requests.get(url=url)
-        data = response.json()
-        dfcols = ["StationId", "ObservationTime", "AirTemperature"]
-        station = data['metadata']['id']
-        rows = []
+        try:
+            response = requests.get(url=url)
+            data = response.json()
+            dfcols = ["StationId", "ObservationTime", "AirTemperature"]
+            station = data['metadata']['id']
+            rows = []
+        except Exception as e:
+            print(f"Error: {e}")
+            continue
+        
         for d in data['data']:
             stationid = station
             time = d['t']
@@ -215,11 +225,16 @@ def ingest_airpress_from_noaa():
     final_station_list = [base_url_part1 + str(i) + base_url_part2_airpress for i in stations_lst]
     final_df = pd.DataFrame()
     for url in final_station_list:
-        response = requests.get(url=url)
-        data = response.json()
-        dfcols = ["StationId", "ObservationTime", "AirPressure"]
-        station = data['metadata']['id']
-        rows = []
+        try:
+            response = requests.get(url=url)
+            data = response.json()
+            dfcols = ["StationId", "ObservationTime", "AirPressure"]
+            station = data['metadata']['id']
+            rows = []
+        except Exception as e:
+            print(f"Error: {e}")
+            continue
+        
         for d in data['data']:
             stationid = station
             time = d['t']
