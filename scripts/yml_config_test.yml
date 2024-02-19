@@ -1,0 +1,10 @@
+database:
+ name: my_name
+ user: nkletnoi
+ password: B1program
+ host: host1
+ port: 5432
+ws:
+ user: nkletnoi2
+ password: B2program
+ host: https://${CURR_ENV}.ws.com.local
