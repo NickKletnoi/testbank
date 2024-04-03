@@ -35,4 +35,4 @@ jobs:
 
       - name: Run Job on Databricks cluster
         run: |
-            databricks jobs run-now $my_job
+            databricks jobs run-now --job-id $my_job
