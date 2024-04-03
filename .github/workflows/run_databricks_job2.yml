@@ -1,0 +1,35 @@
+name: Run Databricks Job2
+on:
+  workflow_dispatch:
+
+env:
+  job: my_job
+
+jobs:
+  run_job:
+    environment: 
+      name: vars
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+      
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Databricks CLI config
+        run: |
+            pip install databricks-cli           
+            databricks configure --token <<EOF
+            ${{ vars.DATABRICKS_HOST_URL }}
+            ${{ secrets.DATABRICKS_DEV_TOKEN }}
+            EOF
+
+      - name: Run Job on Databricks cluster
+        run: |
+            databricks jobs configure --version=2.1
+            JOB_ID=$(databricks jobs list | grep -w "$job" | awk -F ' ' '{print $1}')
+            databricks jobs run-now $JOB_ID
