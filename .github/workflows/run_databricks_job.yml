@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 env:
-  my_job: 828372977979747
+  my_job_ID: 828372977979747
 
 jobs:
   run_job:
@@ -31,4 +31,4 @@ jobs:
       - name: Run Job on Databricks cluster
         run: |
             databricks jobs configure --version=2.1
-            databricks jobs run-now --job-id $my_job
+            databricks jobs run-now --job-id $my_job_ID
