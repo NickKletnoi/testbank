@@ -32,4 +32,4 @@ jobs:
         run: |
             databricks jobs configure --version=2.1
             JOB_ID=$(databricks jobs list | grep -w "$job" | awk -F ' ' '{print $1}')
-            databricks jobs run-now $JOB_ID
+            databricks jobs run-now --job-id $JOB_ID
