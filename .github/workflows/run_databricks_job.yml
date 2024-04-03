@@ -10,7 +10,7 @@ env:
   WAIT_TIMEOUT: 20m0s
 
 jobs:
-  deploy_notebook:
+  run_job:
     environment: 
       name: vars
     runs-on: ubuntu-latest
@@ -31,8 +31,9 @@ jobs:
             ${{ vars.DATABRICKS_HOST_URL }}
             ${{ secrets.DATABRICKS_DEV_TOKEN }}
             EOF
+            databricks jobs configure --version=2.1
 
       - name: Run Job on Databricks cluster
         run: |
             JOB_ID=$(databricks jobs list | grep -w $JOB_NAME | awk -F ' ' '{print $1}')
-            databricks jobs run-now $JOB_ID --no-wait
+            databricks jobs run-now $JOB_ID
