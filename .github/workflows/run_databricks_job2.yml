@@ -28,7 +28,7 @@ jobs:
             ${{ secrets.DATABRICKS_DEV_TOKEN }}
             EOF
 
-      - name: Run Job on Databricks cluster
+      - name: Run my_job on Databricks
         run: |
             databricks jobs configure --version=2.1
             JOB_ID=$(databricks jobs list | grep -w "$job" | awk -F ' ' '{print $1}')
