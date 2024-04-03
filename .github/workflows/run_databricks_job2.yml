@@ -31,5 +31,5 @@ jobs:
       - name: Run Job on Databricks cluster
         run: |
             databricks jobs configure --version=2.1
-            JOB_ID=$(databricks jobs list | grep -w "$job" | awk -F ' ' '{print $0}')
+            JOB_ID=$(databricks jobs list | grep -w "$job")
             databricks jobs run-now --job-id $JOB_ID
