@@ -35,4 +35,4 @@ jobs:
       - name: Run Job on Databricks cluster
         run: |
             JOB_ID=$(databricks jobs list | grep -w $JOB_NAME | awk -F ' ' '{print $1}')
-            databricks jobs run-now $JOB_ID --timeout $WAIT_TIMEOUT --no-wait
+            databricks jobs run-now $JOB_ID --no-wait
