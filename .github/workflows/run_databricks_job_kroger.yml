@@ -1,0 +1,58 @@
+name: Run Databricks Job Kroger
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: FDP Azure Environment
+        required: true
+        type: choice
+        options:
+          - sand
+          - dev
+          - test
+          - stage
+          - prod
+        default: sand
+      job:
+        description: Databricks Job Name
+        required: true
+        type: string
+
+jobs:
+  run_databricks_job:
+    name: Run Databricks Job - ${{ inputs.environment }}
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    env:
+      DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        shell: bash
+        run: |
+          az login --service-principal -u ${{ secrets.CLIENT_ID }} -p=${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }} --output none
+          az account set -s ${{ secrets.SUBSCRIPTION_ID}} --output none
+
+      - name: Get Databricks Token
+        shell: bash
+        run: |
+          token=$(az account get-access-token \
+          --resource 2ff814a6-3304-4ab8-85cb-cd0e6f879c1d \
+          --query "accessToken" \
+          -o tsv)
+          echo "DATABRICKS_TOKEN=${token}" >> $GITHUB_ENV
+
+      - name: install-databricks-cli
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+          databricks --version
+
+      - name: Run Databricks Job
+        run: |
+          echo "Jobs List: "
+          databricks jobs list
+          JOB_ID=$(databricks jobs list | grep -m 1 -w "${{ inputs.job }}" | awk -F ' ' '{print $1}')
+          echo "JOB ID: $JOB_ID"
+          databricks jobs run-now $JOB_ID
