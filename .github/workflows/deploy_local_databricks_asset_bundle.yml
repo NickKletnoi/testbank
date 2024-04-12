@@ -1,0 +1,24 @@
+name: Deploy local bundle to dev
+on:
+  workflow_dispatch:
+
+env:
+    PYTHON_VERSION: 3.9
+
+jobs:
+    deploy-dev:
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+            - name: Setup Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: ${{ env.PYTHON_VERSION }}
+            - name: deploy and trigger
+              env:
+                  WORKSPACE_ENV: dev
+              run: |
+                  curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
+                  databricks bundle validate -t $WORKSPACE_ENV
+                  databricks bundle deploy -t $WORKSPACE_ENV
+                  databricks bundle run Full_Refresh2 -t $WORKSPACE_ENV
