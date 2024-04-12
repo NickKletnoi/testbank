@@ -1,0 +1,190 @@
+bundle:
+    name: stoplight_bndl
+variables:
+    release_version:
+        description: Package release version
+        default: "null"
+resources:
+        jobs:
+          Full_Refresh2:
+            name: Full Refresh2
+            email_notifications:
+              on_failure:
+                - 99c6426c.kproductivity.onmicrosoft.com@amer.teams.ms
+                - 45444a68.kproductivity.onmicrosoft.com@amer.teams.ms
+              no_alert_for_skipped_runs: true
+            notification_settings:
+              no_alert_for_skipped_runs: true
+              no_alert_for_canceled_runs: true
+            schedule:
+              quartz_cron_expression: 38 0 5 * * ?
+              timezone_id: America/New_York
+              pause_status: UNPAUSED
+            tasks:
+              - task_key: tbl_item
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_item.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_store
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_store.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_dynamic-store
+                depends_on:
+                  - task_key: tbl_store
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_dynamic-store.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_item_store
+                depends_on:
+                  - task_key: tbl_item
+                  - task_key: tbl_store
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_item_store.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_order
+                depends_on:
+                  - task_key: tbl_store
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_order.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_dynamic-order
+                depends_on:
+                  - task_key: tbl_order
+                  - task_key: tbl_dynamic-store
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_dynamic-order.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_order_detail
+                depends_on:
+                  - task_key: tbl_dynamic-order
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_order_detail.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_order_complete
+                depends_on:
+                  - task_key: tbl_order
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_order_complete.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_order_item
+                depends_on:
+                  - task_key: tbl_order
+                  - task_key: tbl_item
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_order_item.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_order_item_substitute
+                depends_on:
+                  - task_key: tbl_order_item
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_order_item_substitute.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_order_item_twc
+                depends_on:
+                  - task_key: tbl_order_item
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_order_item_twc.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_trolley_run
+                depends_on:
+                  - task_key: tbl_store
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_trolley_run.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_order_container
+                depends_on:
+                  - task_key: tbl_order
+                  - task_key: tbl_trolley_run
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_order_container.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_dynamic-order_container
+                depends_on:
+                  - task_key: tbl_dynamic-order
+                  - task_key: tbl_order_container
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_dynamic-order_container.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_order_container_item
+                depends_on:
+                  - task_key: tbl_order_container
+                  - task_key: tbl_order_item
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_order_container_item.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_dynamic-order_container_item
+                depends_on:
+                  - task_key: tbl_dynamic-order_container
+                  - task_key: tbl_order_container_item
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_dynamic-order_container_item.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_order_item_picking
+                depends_on:
+                  - task_key: tbl_order_item
+                  - task_key: tbl_order_container
+                  - task_key: tbl_item_store
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_order_item_picking.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: tbl_order_item_picking_complete
+                depends_on:
+                  - task_key: tbl_order_container
+                  - task_key: tbl_order_item
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_order_item_picking_complete.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+              - task_key: finish
+                depends_on:
+                  - task_key: tbl_order_complete
+                  - task_key: tbl_order_item_picking_complete
+                  - task_key: tbl_order_item_twc
+                  - task_key: tbl_order_item_substitute
+                  - task_key: tbl_order_item_picking
+                  - task_key: tbl_dynamic-order_container_item
+                  - task_key: tbl_order_detail
+                spark_python_task:
+                  python_file: deep_path_etl/tbl_job.py
+                  source: GIT
+                existing_cluster_id: 0321-191457-xhsqca3
+            git_source:
+              git_url: https://github.com/krogertechnology/fst-fdp-az-databricks
+              git_provider: gitHub
+              git_branch: main
+
+targets:
+    dev:
+        mode: development
+        default: true
+        workspace:
+            host: https://adb-5658758385029909.9.azuredatabricks.net/
+            root_path: /Shared/.bundle/dev/${bundle.name}
+        run_as:
+            user_name: morgan.jones@kroger.com # TODO: replace with service account    
+       
+    prod:
+        mode: production
+        workspace:
+            host: https://adb-5658758385029909.9.azuredatabricks.net/
+            root_path: /Shared/.bundle/prod/${bundle.name}
+        run_as:
+            user_name: morgan.jones@kroger.com # TODO: replace with service account
