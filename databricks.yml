@@ -12,7 +12,7 @@ resources:
         - task_key: define_class
           notebook_task:
             notebook_path: notebooks/Class_processing.py
-            source: git
+            source: GIT
           job_cluster_key: Job_cluster
           libraries:
             - pypi:
