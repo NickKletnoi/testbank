@@ -19,6 +19,10 @@ jobs:
                   WORKSPACE_ENV: dev
               run: |
                   curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
+                  databricks configure --token <<EOF
+                  ${{ vars.DATABRICKS_HOST_URL }}
+                  ${{ secrets.DATABRICKS_DEV_TOKEN }}
+                  EOF
                   databricks bundle validate -t $WORKSPACE_ENV
                   databricks bundle deploy -t $WORKSPACE_ENV
-                  databricks bundle run Full_Refresh2 -t $WORKSPACE_ENV
+                  databricks bundle run my_job -t $WORKSPACE_ENV
