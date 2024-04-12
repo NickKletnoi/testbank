@@ -8,6 +8,7 @@ env:
 
 jobs:
     deploy-dev:
+        runs-on: [self-hosted,aks]
         steps:
             - name: Checkout repository
               uses: actions/checkout@v3
