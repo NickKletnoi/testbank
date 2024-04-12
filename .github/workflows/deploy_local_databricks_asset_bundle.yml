@@ -4,6 +4,7 @@ on:
 
 env:
     PYTHON_VERSION: 3.9
+    DATABRICKS_HOST_URL: https://dbc-68d2f873-1a1e.cloud.databricks.com/
 
 jobs:
     deploy-dev:
