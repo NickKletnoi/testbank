@@ -44,7 +44,7 @@ targets:
         mode: development
         default: true
         workspace:
-            host: https://adb-5658758385029909.9.azuredatabricks.net/
+            host: https://dbc-68d2f873-1a1e.cloud.databricks.com/
             root_path: /Shared/.bundle/dev/${bundle.name}
         run_as:
             user_name: kletnoi@live.com # TODO: replace with service account    
@@ -52,7 +52,7 @@ targets:
     prod:
         mode: production
         workspace:
-            host: https://adb-5658758385029909.9.azuredatabricks.net/
+            host: https://dbc-68d2f873-1a1e.cloud.databricks.com/
             root_path: /Shared/.bundle/prod/${bundle.name}
         run_as:
             user_name:  kletnoi@live.com # TODO: replace with service account
