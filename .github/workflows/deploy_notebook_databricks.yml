@@ -1,4 +1,4 @@
-name: Deploy Notebook to Databricks
+name: Deploy Notebook & Bundle to Databricks
 on:
   workflow_dispatch:
 
@@ -40,6 +40,9 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - name: Next Step
+        - name: Deploy Bundle
           run: |
-              echo "success"
+            curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
+            databricks bundle validate -t dev
+            databricks bundle deploy -t dev
+
