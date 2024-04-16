@@ -23,4 +23,4 @@ jobs:
                   curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
                   databricks bundle validate -t $WORKSPACE_ENV
                   databricks bundle deploy -t $WORKSPACE_ENV
-                  databricks bundle run my_job -t $WORKSPACE_ENV
+                  # databricks bundle run my_job -t $WORKSPACE_ENV
