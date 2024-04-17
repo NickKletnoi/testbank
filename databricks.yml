@@ -11,7 +11,7 @@ resources:
       tasks:
         - task_key: define_class
           notebook_task:
-            notebook_path: notebooks/Class_processing.py
+            notebook_path: /Users/${workspace.current_user.userName}/.bundle/${bundle.name}/files/notebooks/Class_processing.py
           job_cluster_key: Job_cluster
           libraries:
             - pypi:
