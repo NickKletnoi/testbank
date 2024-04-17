@@ -25,11 +25,14 @@ jobs:
       - name: Databricks CLI config
         run: |
             curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh          
+            
+      - name: Databricks token config
+        run: |        
             databricks configure --token <<EOF
             ${{ vars.DATABRICKS_HOST_URL }}
             ${{ secrets.DATABRICKS_DEV_TOKEN }}
             EOF
-
+            
       - name: Deploy code to databricks workspace
         run: |
             #databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY }} -l python --overwrite
