@@ -24,14 +24,14 @@ jobs:
 
       - name: Databricks CLI config
         run: |
-            curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh          
+            # curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh          
             
       - name: Databricks token config
         run: |        
-            databricks configure --token <<EOF
-            ${{ vars.DATABRICKS_HOST_URL }}
-            ${{ secrets.DATABRICKS_DEV_TOKEN }}
-            EOF
+            # databricks configure --token <<EOF
+            # ${{ vars.DATABRICKS_HOST_URL }}
+            # ${{ secrets.DATABRICKS_DEV_TOKEN }}
+            # EOF
             
       - name: Deploy code to databricks workspace
         run: |
@@ -44,6 +44,9 @@ jobs:
 
       steps:
         - name: Deploy Bundle
+          env:
+           DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
+           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}       
           run: |
             curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
             databricks bundle validate -t dev
