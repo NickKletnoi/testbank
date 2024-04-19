@@ -1,4 +1,4 @@
-name: Deploy Notebook & Bundle to Databricks
+name: Deploy Bundle to Databricks
 on:
   workflow_dispatch:
 jobs:          
