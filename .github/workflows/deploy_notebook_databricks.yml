@@ -6,26 +6,12 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Checkout repository
-          uses: actions/checkout@v4
-        - name: Databricks CLI install
-          run: |
-            curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh           
-            databricks configure --token <<EOF
-            ${{ vars.DATABRICKS_HOST_URL }}
-            ${{ secrets.DATABRICKS_DEV_TOKEN }}
-            EOF  
-        - name: Databricks CLI config
-          run: |      
-            databricks configure --token <<EOF
-            ${{ vars.DATABRICKS_HOST_URL }}
-            ${{ secrets.DATABRICKS_DEV_TOKEN }}
-            EOF     
+          uses: actions/checkout@v4    
         - name: Deploy Bundle
           env:
            DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
            DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
            WORKSPACE_ENV: dev
           run: |
-            curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
             databricks bundle validate -t dev
             databricks bundle deploy -t dev
