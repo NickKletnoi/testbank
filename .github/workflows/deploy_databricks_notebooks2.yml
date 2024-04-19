@@ -34,11 +34,17 @@ jobs:
         run: |
             #pip install databricks-cli           
             curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
-            databricks configure --token <<EOF
-            ${{ vars.DATABRICKS_HOST_URL }}
-            ${{ secrets.DATABRICKS_DEV_TOKEN }}
-            EOF
 
+      - name: Config Databricks in non-interactive mode
+        shell: pwsh
+        run: |
+          write-host Configure databricks access
+          $Env:DATABRICKS_CONFIG_FILE = "$(System.DefaultWorkingDirectory)/.databrickscfg"
+          Set-Location $(System.DefaultWorkingDirectory)
+          Set-Content .databrickscfg "[DEFAULT]"
+          Add-Content .databrickscfg "host = " + ${{ vars.DATABRICKS_HOST_URL }}
+          Add-Content .databrickscfg "token = " + ${{ secrets.DATABRICKS_DEV_TOKEN }}
+            
       - name: Deploy code to databricks workspace
         run: |
             databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY_1 }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY_1 }} -l python --overwrite
