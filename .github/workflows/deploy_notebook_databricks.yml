@@ -7,9 +7,14 @@ jobs:
       steps:
         - name: Checkout repository
           uses: actions/checkout@v4
-        - name: Databricks CLI install
+
+        - name: Databricks CLI config
           run: |
-            curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh    
+            curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh            
+            databricks configure --token <<EOF
+            ${{ vars.DATABRICKS_HOST_URL }}
+            ${{ secrets.DATABRICKS_DEV_TOKEN }}
+            EOF  
         - name: Deploy Bundle
           env:
            DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
