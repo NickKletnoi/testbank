@@ -5,6 +5,8 @@ jobs:
   deploy_bundle:
       runs-on: ubuntu-latest
       steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
         - name: Deploy Bundle
           env:
            DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
