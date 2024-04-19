@@ -32,7 +32,8 @@ jobs:
 
       - name: Databricks CLI config
         run: |
-            pip install databricks-cli           
+            #pip install databricks-cli           
+            curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sudo sh
             databricks configure --token <<EOF
             ${{ vars.DATABRICKS_HOST_URL }}
             ${{ secrets.DATABRICKS_DEV_TOKEN }}
