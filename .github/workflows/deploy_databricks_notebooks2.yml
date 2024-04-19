@@ -1,0 +1,45 @@
+name: Deploy Notebooks to Databricks2
+on:
+  workflow_dispatch:
+
+#on:
+#  push:
+#    paths:
+#      - 'notebooks/test1.py'
+#      - 'notebooks/test2.py'
+#      - 'notebooks/test3.py'
+
+env:
+  FILE_NAME_TO_DEPLOY_1: test1.py
+  FILE_NAME_TO_DEPLOY_2: test2.py
+  FILE_NAME_TO_DEPLOY_3: test3.py
+  DEPLOY_FOLDER: /Shared/testing/
+
+jobs:
+  deploy_notebooks:
+    environment: 
+      name: vars
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v3.3.0
+      
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Databricks CLI config
+        run: |
+            pip install databricks-cli           
+            databricks configure --token <<EOF
+            ${{ vars.DATABRICKS_HOST_URL }}
+            ${{ secrets.DATABRICKS_DEV_TOKEN }}
+            EOF
+
+      - name: Deploy code to databricks workspace
+        run: |
+            databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY_1 }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY_1 }} -l python --overwrite
+            databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY_2 }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY_2 }} -l python --overwrite
+            databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY_3 }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY_3 }} -l python --overwrite
