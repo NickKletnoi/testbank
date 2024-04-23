@@ -40,6 +40,4 @@ jobs:
           DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
-            databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY_1 }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY_1 }}
-            databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY_2 }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY_2 }}
-            databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY_3 }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY_3 }}
+            databricks workspace import notebooks/${{ env.FILE_NAME_TO_DEPLOY_1 }} ${{ env.DEPLOY_FOLDER }}${{ env.FILE_NAME_TO_DEPLOY_1 }} -l python --overwrite
