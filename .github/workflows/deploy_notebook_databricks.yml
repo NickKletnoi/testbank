@@ -17,6 +17,6 @@ jobs:
            DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
            WORKSPACE_ENV: dev  
           run: |
-            databricks configure --token --host $DATABRICKS_HOST
+            databricks configure --token --host ${{ vars.DATABRICKS_HOST }}
             databricks bundle validate -t dev
             databricks bundle deploy -t dev
