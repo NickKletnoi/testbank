@@ -1,6 +1,9 @@
 name: Deploy Bundle to Databricks
 on:
   workflow_dispatch:
+env:
+           DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
+           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}  
 jobs:          
   deploy_bundle:
       runs-on: ubuntu-latest
