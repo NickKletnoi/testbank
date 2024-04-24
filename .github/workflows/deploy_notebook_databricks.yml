@@ -4,6 +4,9 @@ on:
 jobs:          
   deploy_bundle:
       runs-on: ubuntu-latest
+      env:
+           DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
+           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
       steps:
         - name: Checkout repository
           uses: actions/checkout@v4
