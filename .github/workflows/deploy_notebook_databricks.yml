@@ -1,26 +1,20 @@
 name: Deploy Bundle to Databricks
 on:
   workflow_dispatch:
-env:
-           DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
-           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}  
 jobs:          
   deploy_bundle:
       runs-on: ubuntu-latest
-      env:
-           DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
-           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
       steps:
         - name: Checkout repository
           uses: actions/checkout@v4
-
         - name: Databricks CLI config
           run: |
             curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh            
         - name: Deploy Bundle
           env:
-           DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
-           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+           DATABRICKS_HOST: https://dbc-68d2f873-1a1e.cloud.databricks.com/
+           DATABRICKS_TOKEN: dapibcdecd5db29dc6f98b3de7b1ca55516d
            WORKSPACE_ENV: dev  
           run: |
             databricks bundle validate -t dev
