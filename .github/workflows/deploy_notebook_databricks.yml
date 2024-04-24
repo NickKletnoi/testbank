@@ -13,8 +13,8 @@ jobs:
             curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh            
         - name: Deploy Bundle
           env:
-           DATABRICKS_HOST: https://dbc-68d2f873-1a1e.cloud.databricks.com/
-           DATABRICKS_TOKEN: dapibcdecd5db29dc6f98b3de7b1ca55516d
+           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
            WORKSPACE_ENV: dev  
           run: |
             databricks bundle validate -t dev
