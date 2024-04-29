@@ -1,0 +1,49 @@
+name: Build and Upload WHL to Databricks
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install wheel setuptools
+          pip install -r requirements.txt  # Assuming you have a requirements.txt file
+
+      - name: Build WHL file
+        run: |
+          python setup.py bdist_wheel
+
+      - name: Upload WHL to Databricks
+        uses: databrickslabs/databricks-job-deployer@v0.2.0
+        with:
+          api-token: ${{ secrets.DATABRICKS_TOKEN }}
+          region: us-east-1
+          workspace-url:${{ secrets.DATABRICKS_HOST }}
+          job-definition: |
+            {
+              "name": "Upload WHL",
+              "new_cluster": {
+                "spark_version": "7.3.x-scala2.12",
+                "node_type_id": "Standard_DS3_v2",  # Adjust cluster size as needed
+                "num_workers": 2
+              },
+              "libraries": [
+                {
+                  "whl": "dist/*.whl"
+                }
+              ]
+            }
