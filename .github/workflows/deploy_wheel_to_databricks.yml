@@ -1,9 +1,6 @@
-name: Build and Upload WHL to Databricks
-
+name: Build and deploy wheel to Databricks
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build_and_upload:
