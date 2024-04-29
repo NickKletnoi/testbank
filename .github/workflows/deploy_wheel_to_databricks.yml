@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
       - name: Install dependencies
         run: |
@@ -32,7 +32,7 @@ jobs:
         with:
           api-token: ${{ secrets.DATABRICKS_TOKEN }}
           region: us-east-1
-          workspace-url:${{ secrets.DATABRICKS_HOST }}
+          workspace-url: ${{ secrets.DATABRICKS_HOST }}
           job-definition: |
             {
               "name": "Upload WHL",
