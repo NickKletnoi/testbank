@@ -40,9 +40,7 @@ targets:
         mode: development
         default: true
         workspace:
-            host: https://dbc-68d2f873-1a1e.cloud.databricks.com/
-        run_as:
-            user_name: 86245b5e-701a-48bd-a2bd-a21997cc2ae2  
+            host: https://dbc-68d2f873-1a1e.cloud.databricks.com/ 
        
     prod:
         mode: production
