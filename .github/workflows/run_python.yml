@@ -27,6 +27,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r ./scripts/requirements.txt
+          ls /home/runner/work/testbank_ECR_AWS/testbank_ECR_AWS/
 
       - name: get waterlevels
         run: python ./scripts/main.py
