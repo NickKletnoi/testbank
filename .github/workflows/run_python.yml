@@ -16,12 +16,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.9" # install the python version needed
-
-      # - name: copy parameters yml file
-      #   uses: canastro/copy-file-action@master
-      #   with:
-      #    source: "./scripts/yml_config_test.yml"
-      #    target: "yml_config_test.yml" 
          
       - name: install python packages
         run: |
