@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 import datetime
 
 from pyaml_env import parse_config
-config = parse_config('/home/runner/work/testbank_ECR_AWS/testbank_ECR_AWS/scripts/yml_config_test.yml')
+config = parse_config('./scripts/yml_config_test.yml')
 
 db_name = config['database']['name']
 print(db_name)
