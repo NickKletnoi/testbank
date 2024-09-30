@@ -1,9 +1,9 @@
 name: get waterlevels and weather observations
 
 on:
-  schedule:
-    - cron: '5 * * * *'
-  #workflow_dispatch:
+  # schedule:
+  #   - cron: '5 * * * *'
+  workflow_dispatch:
 
 jobs:
   Get_WaterLevels_and_WeatherObservations:
