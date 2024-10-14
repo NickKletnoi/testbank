@@ -25,6 +25,7 @@ jobs:
 
       - name: Run SQL Driver installation script
         run:  |
+          sed -i 's/\r$//' ./scripts/install_sql_driver.sh
           chmod +x ./scripts/install_sql_driver.sh
           bash ./scripts/install_sql_driver.sh
           
