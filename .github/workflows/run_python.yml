@@ -1,9 +1,9 @@
 name: get waterlevels and weather observations
 
 on:
-  # schedule:
-  #   - cron: '5 * * * *'
-  workflow_dispatch:
+  schedule:
+    - cron: '5 * * * *'
+  # workflow_dispatch:
 
 jobs:
   Get_WaterLevels_and_WeatherObservations:
@@ -29,7 +29,6 @@ jobs:
           chmod +x ./scripts/install_sql_driver.sh
           bash ./scripts/install_sql_driver.sh
           
-
       - name: get waterlevels
         run: python ./scripts/main.py
 
