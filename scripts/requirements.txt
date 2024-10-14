@@ -17,3 +17,8 @@ tomli==2.0.1
 typing_extensions==4.4.0
 urllib3==1.26.14
 pyaml_env
+libodbcinst2 
+msodbcsql18 
+odbcinst 
+unixodbc 
+unixodbc-common
