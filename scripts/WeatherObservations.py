@@ -13,7 +13,7 @@ print(db_name)
 
 start_time = datetime.datetime.now()
 
-con_str = urllib.parse.quote_plus("DRIVER={ODBC Driver 17 for SQL Server};SERVER=interlake-bi.database.windows.net;DATABASE=ISS_DW;UID=BIAdmin;PWD=sb98D&B(*#$@")
+con_str = urllib.parse.quote_plus("DRIVER={ODBC Driver 18 for SQL Server};SERVER=interlake-bi.database.windows.net;DATABASE=ISS_DW;UID=BIAdmin;PWD=sb98D&B(*#$@")
 engine = create_engine("mssql+pyodbc:///?odbc_connect=%s" % con_str)
 
 stations_lst=[9063063,9075099,9075099,9076027,9076033,9076070,9075080,9087031,9099064,9063079,9063053,9063063,9075065]
